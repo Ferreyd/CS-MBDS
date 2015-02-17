@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QCM.RichClient", "QCM.RichClient\QCM.RichClient.csproj", "{CCA7642F-FBC1-4E6A-A73B-63EE45567B73}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QCM.BuisinessLayer", "QCM.BuisinessLayer\QCM.BuisinessLayer.csproj", "{0F2C6562-65B6-489A-BB1C-18ED41E27352}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CCA7642F-FBC1-4E6A-A73B-63EE45567B73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CCA7642F-FBC1-4E6A-A73B-63EE45567B73}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CCA7642F-FBC1-4E6A-A73B-63EE45567B73}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CCA7642F-FBC1-4E6A-A73B-63EE45567B73}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F2C6562-65B6-489A-BB1C-18ED41E27352}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F2C6562-65B6-489A-BB1C-18ED41E27352}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F2C6562-65B6-489A-BB1C-18ED41E27352}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F2C6562-65B6-489A-BB1C-18ED41E27352}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
