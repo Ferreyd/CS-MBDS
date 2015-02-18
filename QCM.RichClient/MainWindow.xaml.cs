@@ -43,7 +43,7 @@ namespace QCM.RichClient
         private void Button_Click_QCM(object sender, RoutedEventArgs e)
         {
             Proposition p1 = new Proposition { EstJuste = true, Id = 1, Phrase = "Oui"};
-            Question q1 = new Question { Id = 1, Phrase = "Oui ou Non ?", Qcm = Qcm};           
+            Question q1 = new Question { Id = 1, Phrase = "Oui ou Non ?"};           
             Reponse r = new Reponse { EstJuste = true, Id = 1};
             Proposition p2 = new Proposition { EstJuste = false, Id = 2, Phrase = "Non" }; 
             q1.Propositions.Add(p2);
@@ -57,6 +57,11 @@ namespace QCM.RichClient
             CorrecteurCalculMoyenne correcteur = new CorrecteurCalculMoyenne();
             decimal res = correcteur.Noter(Qcm);
             MessageBox.Show(res.ToString());
+
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
 
         }
     }

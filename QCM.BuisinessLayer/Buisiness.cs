@@ -6,67 +6,65 @@ using System.Threading.Tasks;
 
 namespace QCM.BuisinessLayer
 {
-    public class QCM
+    public partial class QCM
     {
-        /// <summary>
-        /// Propriété pour la liste de questions
-        /// </summary>
-        public List<Question> Questions { get; set; }
-        public int id { get; set; }
-        public String Nom { get; set; }
-
-        /// <summary>
-        /// Constructeur de la classe QCM
-        /// </summary>
-        /// <param name="nom">Nom du QCM</param>
-        /// <param name="questions">Liste de questions</param>
-        public QCM(String nom)
+        public QCM(string nom)
         {
             this.Nom = nom;
-            this.Questions = new List<Question>();
+            this.Questions = new HashSet<Question>();
         }
 
-        public String ToString()
+        public int Id { get; set; }
+        public string Nom { get; set; }
+
+        public HashSet<Question> Questions { get; set; }
+
+
+        /// <summary>
+        /// Exemple de substitution de méthode, car ToString est déjà défini dans la classe Objet
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
         {
-            return "QCM : id = " + this.id + " Nom = " + this.Nom + " NBQuestions = " +this.Questions.Count;
+            StringBuilder strbld = new StringBuilder();
+            strbld.AppendLine(this.Nom);
+            foreach (var item in this.Questions)
+            {
+                strbld.AppendLine(item.Phrase);
+            };
+            return strbld.ToString();
         }
     }
 
-    public class Question
+    public partial class Question
     {
-        public List<Proposition> Propositions { get; set; }
-        public int Id { get; set; }
-
-        public QCM Qcm { get; set; }
-
-        public String Phrase { get; set; }
-
         public Question()
         {
-            this.Propositions = new List<Proposition>();
-        }
-    }
-
-    public class Proposition
-    {
-        public List<Reponse> Reponses { get; set; }
-        public Boolean EstJuste { get; set; }
-        public int Id { get; set; }
-        public Question Question { get; set; }
-        public String Phrase { get; set; }
-
-        public Proposition()
-        {
-            this.Reponses = new List<Reponse>();
+            this.Propositions = new HashSet<Proposition>();
         }
 
+        public int Id { get; set; }
+        public string Phrase { get; set; }
+        public int IdQcm { get; set; }
+
+        public HashSet<Proposition> Propositions { get; set; }
     }
 
-    public class Reponse
+    public partial class Proposition
     {
-        public Boolean EstJuste { get; set; }
+
         public int Id { get; set; }
-        public Proposition Proposition { get; set; }
+        public string Phrase { get; set; }
+        public bool EstJuste { get; set; }
+        public int IdQuestion { get; set; }
+        public Reponse Reponse { get; set; }
+    }
+
+    public partial class Reponse
+    {
+        public int Id { get; set; }
+        public int IdProposition { get; set; }
+        public bool EstJuste { get; set; }
     }
 
 

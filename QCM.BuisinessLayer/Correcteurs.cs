@@ -14,59 +14,81 @@ namespace QCM.BuisinessLayer
             decimal Noter(QCM qcm);
         }
 
-        abstract public class CorrecteurBase : ICorrecteur
+        public abstract class CorrecteurBase : ICorrecteur
         {
-            public decimal Noter(QCM qcm)
+
+            public abstract decimal Noter(QCM qcm);
+
+
+        }
+        public class CorrecteurCalculMoyenne : CorrecteurBase
+        {
+            public override decimal Noter(QCM qcm)
             {
-                int nbRepJustes = 0;
-                int nbPropositions = 0;
-                decimal res = -1;
-                try
+                if (qcm.Questions == null || qcm.Questions.Count == 0)
                 {
-                    foreach (Question q in qcm.Questions)
+                    throw new CorrectionImpossibleException("Le Qcm ne contient pas de questions!");
+                }
+
+                var poidsGlobal = 0;
+                var poidsReussite = 0;
+                foreach (var question in qcm.Questions)
+                {
+                    foreach (var proposition in question.Propositions)
                     {
-                        foreach (Proposition p in q.Propositions)
+                        poidsGlobal++;
+                        if (proposition.Reponse != null)
                         {
-                            if (p.EstJuste)
+                            if (proposition.EstJuste == proposition.Reponse.EstJuste)
                             {
-                                nbRepJustes++;
+                                poidsReussite++;
                             }
-                            nbPropositions++;
                         }
-                        res = nbRepJustes / nbPropositions;
                     }
-                }
-                catch (ApplicationException e)
-                {
-                    Console.WriteLine(e.Source);
-                    Console.WriteLine("Le QCM est vide il n'y a pas de réponses.");
-                }
-           
-                return res;
+                };
+                return poidsReussite / poidsGlobal;
             }
         }
 
-        public class CorrecteurCalculMoyenne : CorrecteurBase
+        public class CorrecteurToutRien : CorrecteurBase
         {
-            public CorrecteurCalculMoyenne() { }
-            decimal Noter(QCM qcm)
+            public override decimal Noter(QCM qcm)
             {
-                int nbRepJustes = 0;
-                int nbPropositions = 0;
-                foreach (Question q in qcm.Questions)
+                if (qcm.Questions == null || qcm.Questions.Count == 0)
                 {
-                    foreach (Proposition p in q.Propositions)
-                    {
-                        if (p.EstJuste)
-                        {
-                            nbRepJustes++;
-                        }
-                        nbPropositions++;
-                    }
+                    throw new CorrectionImpossibleException("Le Qcm ne contient pas de questions!");
                 }
 
-                return nbRepJustes / nbPropositions;
+                var poidsGlobal = 0;
+                var poidsReussite = 0;
+                foreach (var question in qcm.Questions)
+                {
+                    poidsGlobal++;
+                    var toutJuste = true;
+                    foreach (var proposition in question.Propositions)
+                    {
+                        if (proposition.Reponse != null)
+                        {
+                            if (proposition.EstJuste != proposition.Reponse.EstJuste)
+                            {
+                                //A la premiere erreur on sort de la boucle
+                                toutJuste = false;
+                                break;
+                            }
+                        }
+                    }
+                    if (toutJuste) poidsReussite++;
+                };
+                return poidsReussite / poidsGlobal;
             }
+
+
+        }
+        public class CorrectionImpossibleException : ApplicationException
+        {
+            public CorrectionImpossibleException(string message)
+                : base(message)
+            { }
         }
     }
 
